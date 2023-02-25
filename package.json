@@ -1,0 +1,24 @@
+{
+  "name": "ahhbhan",
+  "version": "1.0.0",
+  "description": "umm khass guiye saga bolna lai ho. paxi arule ni use garna milne banauxu hola.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puskarwagle/ahhbhan.git"
+  },
+  "author": "puskarwagle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/puskarwagle/ahhbhan/issues"
+  },
+  "homepage": "https://github.com/puskarwagle/ahhbhan#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "socket.io": "^4.6.1"
+  }
+}
