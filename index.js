@@ -11,6 +11,18 @@ const PORT = process.env.PORT || 5005;
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+// Serve login page as the default page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// Handle login form submission
+app.post('/login', (req, res) => {
+  const { username } = req.body;
+  // TODO: validate the username
+  res.redirect('/index.html');
+});
+
 // Handle incoming connections
 io.on('connection', (socket) => {
   console.log(`New user connected with ID ${socket.id}`);
@@ -28,7 +40,13 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'service-worker.js'));
+});
+
+
 // Start the server
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

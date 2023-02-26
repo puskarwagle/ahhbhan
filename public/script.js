@@ -14,7 +14,6 @@ socket.on('chatMessage', (message, timestamp) => {
   messageElement.textContent = message;
   messageContainer.append(messageElement);
 
-  // Save message to local storage
   const messages = JSON.parse(localStorage.getItem('messages')) || [];
   messages.push({ message, timestamp: new Date().getTime() });
   localStorage.setItem('messages', JSON.stringify(messages));
@@ -25,13 +24,11 @@ const savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
 for (const savedMessage of savedMessages) {
   const savedMessageElement = document.createElement('div');
   savedMessageElement.classList.add('saved-message');
-
-  // Convert the timestamp number back to a Date object
+  
   const timestamp = new Date(savedMessage.timestamp);
   const formattedTimestamp = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
-
   savedMessageElement.innerHTML = `${savedMessage.message} - ${formattedTimestamp}`;
-  savedMessagesContainer.append(savedMessageElement);
+  savedMessagesContainer.prepend(savedMessageElement);
 }
 
 // Handle message submission
@@ -52,3 +49,16 @@ clearStorageButton.addEventListener('click', () => {
   savedMessagesContainer.innerHTML = '';
 });
 messageContainer.prepend(clearStorageButton);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
